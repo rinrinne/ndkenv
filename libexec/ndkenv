@@ -3,18 +3,18 @@ set -e
 export -n CDPATH
 
 if [ "$1" = "--debug" ]; then
-  export RBENV_DEBUG=1
+  export NDKENV_DEBUG=1
   shift
 fi
 
-if [ -n "$RBENV_DEBUG" ]; then
+if [ -n "$NDKENV_DEBUG" ]; then
   export PS4='+ [${BASH_SOURCE##*/}:${LINENO}] '
   set -x
 fi
 
 READLINK=$(type -p greadlink readlink | head -1)
 if [ -z "$READLINK" ]; then
-  echo "rbenv: cannot find readlink - are you missing GNU coreutils?" >&2
+  echo "ndkenv: cannot find readlink - are you missing GNU coreutils?" >&2
   exit 1
 fi
 
@@ -36,39 +36,39 @@ abs_dirname() {
   cd "$cwd"
 }
 
-if [ -z "${RBENV_ROOT}" ]; then
-  RBENV_ROOT="${HOME}/.rbenv"
+if [ -z "${NDKENV_ROOT}" ]; then
+  NDKENV_ROOT="${HOME}/.ndkenv"
 else
-  RBENV_ROOT="${RBENV_ROOT%/}"
+  NDKENV_ROOT="${NDKENV_ROOT%/}"
 fi
-export RBENV_ROOT
+export NDKENV_ROOT
 
-if [ -z "${RBENV_DIR}" ]; then
-  RBENV_DIR="$(pwd)"
+if [ -z "${NDKENV_DIR}" ]; then
+  NDKENV_DIR="$(pwd)"
 else
-  cd "$RBENV_DIR" 2>/dev/null || {
-    echo "rbenv: cannot change working directory to \`$RBENV_DIR'"
+  cd "$NDKENV_DIR" 2>/dev/null || {
+    echo "ndkenv: cannot change working directory to \`$NDKENV_DIR'"
     exit 1
   } >&2
-  RBENV_DIR="$(pwd)"
+  NDKENV_DIR="$(pwd)"
   cd "$OLDPWD"
 fi
-export RBENV_DIR
+export NDKENV_DIR
 
 
 shopt -s nullglob
 
 bin_path="$(abs_dirname "$0")"
-for plugin_bin in "${RBENV_ROOT}/plugins/"*/bin; do
+for plugin_bin in "${NDKENV_ROOT}/plugins/"*/bin; do
   bin_path="${bin_path}:${plugin_bin}"
 done
 export PATH="${bin_path}:${PATH}"
 
-hook_path="${RBENV_HOOK_PATH}:${RBENV_ROOT}/rbenv.d:/usr/local/etc/rbenv.d:/etc/rbenv.d:/usr/lib/rbenv/hooks"
-for plugin_hook in "${RBENV_ROOT}/plugins/"*/etc/rbenv.d; do
+hook_path="${NDKENV_HOOK_PATH}:${NDKENV_ROOT}/ndkenv.d:/usr/local/etc/ndkenv.d:/etc/ndkenv.d:/usr/lib/ndkenv/hooks"
+for plugin_hook in "${NDKENV_ROOT}/plugins/"*/etc/ndkenv.d; do
   hook_path="${hook_path}:${plugin_hook}"
 done
-export RBENV_HOOK_PATH="$hook_path"
+export NDKENV_HOOK_PATH="$hook_path"
 
 shopt -u nullglob
 
@@ -76,15 +76,15 @@ shopt -u nullglob
 command="$1"
 case "$command" in
 "" | "-h" | "--help" )
-  echo -e "$(rbenv---version)\n$(rbenv-help)" >&2
+  echo -e "$(ndkenv---version)\n$(ndkenv-help)" >&2
   ;;
 "-v" )
-  exec rbenv---version
+  exec ndkenv---version
   ;;
 * )
-  command_path="$(command -v "rbenv-$command" || true)"
+  command_path="$(command -v "ndkenv-$command" || true)"
   if [ -z "$command_path" ]; then
-    echo "rbenv: no such command \`$command'" >&2
+    echo "ndkenv: no such command \`$command'" >&2
     exit 1
   fi
 

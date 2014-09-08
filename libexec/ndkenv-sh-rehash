@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -e
-[ -n "$RBENV_DEBUG" ] && set -x
+[ -n "$NDKENV_DEBUG" ] && set -x
 
-# Provide rbenv completions
+# Provide ndkenv completions
 if [ "$1" = "--complete" ]; then
-  exec rbenv-rehash --complete
+  exec ndkenv-rehash --complete
 fi
 
-shell="$(basename "${RBENV_SHELL:-$SHELL}")"
+shell="$(basename "${NDKENV_SHELL:-$SHELL}")"
 
-# When rbenv shell integration is enabled, delegate to rbenv-rehash,
+# When ndkenv shell integration is enabled, delegate to ndkenv-rehash,
 # then tell the shell to empty its command lookup cache.
-rbenv-rehash
+ndkenv-rehash
 
 case "$shell" in
 fish )

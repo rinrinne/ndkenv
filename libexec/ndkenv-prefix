@@ -1,41 +1,41 @@
 #!/usr/bin/env bash
-# Summary: Display prefix for a Ruby version
-# Usage: rbenv prefix [<version>]
+# Summary: Display prefix for a NDK version
+# Usage: ndkenv prefix [<version>]
 #
-# Displays the directory where a Ruby version is installed. If no
-# version is given, `rbenv prefix' displays the location of the
+# Displays the directory where a NDK version is installed. If no
+# version is given, `ndkenv prefix' displays the location of the
 # currently selected version.
 
 set -e
-[ -n "$RBENV_DEBUG" ] && set -x
+[ -n "$NDKENV_DEBUG" ] && set -x
 
-# Provide rbenv completions
+# Provide ndkenv completions
 if [ "$1" = "--complete" ]; then
   echo system
-  exec rbenv-versions --bare
+  exec ndkenv-versions --bare
 fi
 
 if [ -n "$1" ]; then
-  export RBENV_VERSION="$1"
-elif [ -z "$RBENV_VERSION" ]; then
-  RBENV_VERSION="$(rbenv-version-name)"
+  export NDKENV_VERSION="$1"
+elif [ -z "$NDKENV_VERSION" ]; then
+  NDKENV_VERSION="$(ndkenv-version-name)"
 fi
 
-if [ "$RBENV_VERSION" = "system" ]; then
-  if RUBY_PATH="$(rbenv-which ruby 2>/dev/null)"; then
-    RUBY_PATH="${RUBY_PATH%/*}"
-    echo "${RUBY_PATH%/bin}"
+if [ "$NDKENV_VERSION" = "system" ]; then
+  if NDK_PATH="$(ndkenv-which ndk 2>/dev/null)"; then
+    NDK_PATH="${NDK_PATH%/*}"
+    echo "${NDK_PATH%/bin}"
     exit
   else
-    echo "rbenv: system version not found in PATH" >&2
+    echo "ndkenv: system version not found in PATH" >&2
     exit 1
   fi
 fi
 
-RBENV_PREFIX_PATH="${RBENV_ROOT}/versions/${RBENV_VERSION}"
-if [ ! -d "$RBENV_PREFIX_PATH" ]; then
-  echo "rbenv: version \`${RBENV_VERSION}' not installed" >&2
+NDKENV_PREFIX_PATH="${NDKENV_ROOT}/versions/${NDKENV_VERSION}"
+if [ ! -d "$NDKENV_PREFIX_PATH" ]; then
+  echo "ndkenv: version \`${NDKENV_VERSION}' not installed" >&2
   exit 1
 fi
 
-echo "$RBENV_PREFIX_PATH"
+echo "$NDKENV_PREFIX_PATH"

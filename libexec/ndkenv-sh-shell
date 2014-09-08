@@ -1,37 +1,37 @@
 #!/usr/bin/env bash
 #
-# Summary: Set or show the shell-specific Ruby version
+# Summary: Set or show the shell-specific NDK version
 #
-# Usage: rbenv shell <version>
-#        rbenv shell --unset
+# Usage: ndkenv shell <version>
+#        ndkenv shell --unset
 #
-# Sets a shell-specific Ruby version by setting the `RBENV_VERSION'
+# Sets a shell-specific NDK version by setting the `NDKENV_VERSION'
 # environment variable in your shell. This version overrides local
 # application-specific versions and the global version.
 #
-# <version> should be a string matching a Ruby version known to rbenv.
-# The special version string `system' will use your default system Ruby.
-# Run `rbenv versions' for a list of available Ruby versions.
+# <version> should be a string matching a NDK version known to ndkenv.
+# The special version string `system' will use your default system NDK.
+# Run `ndkenv versions' for a list of available NDK versions.
 
 set -e
-[ -n "$RBENV_DEBUG" ] && set -x
+[ -n "$NDKENV_DEBUG" ] && set -x
 
-# Provide rbenv completions
+# Provide ndkenv completions
 if [ "$1" = "--complete" ]; then
   echo --unset
   echo system
-  exec rbenv-versions --bare
+  exec ndkenv-versions --bare
 fi
 
 version="$1"
-shell="$(basename "${RBENV_SHELL:-$SHELL}")"
+shell="$(basename "${NDKENV_SHELL:-$SHELL}")"
 
 if [ -z "$version" ]; then
-  if [ -z "$RBENV_VERSION" ]; then
-    echo "rbenv: no shell-specific version configured" >&2
+  if [ -z "$NDKENV_VERSION" ]; then
+    echo "ndkenv: no shell-specific version configured" >&2
     exit 1
   else
-    echo "echo \"\$RBENV_VERSION\""
+    echo "echo \"\$NDKENV_VERSION\""
     exit
   fi
 fi
@@ -39,23 +39,23 @@ fi
 if [ "$version" = "--unset" ]; then
   case "$shell" in
   fish )
-    echo "set -e RBENV_VERSION"
+    echo "set -e NDKENV_VERSION"
     ;;
   * )
-    echo "unset RBENV_VERSION"
+    echo "unset NDKENV_VERSION"
     ;;
   esac
   exit
 fi
 
 # Make sure the specified version is installed.
-if rbenv-prefix "$version" >/dev/null; then
+if ndkenv-prefix "$version" >/dev/null; then
   case "$shell" in
   fish )
-    echo "setenv RBENV_VERSION \"${version}\""
+    echo "setenv NDKENV_VERSION \"${version}\""
     ;;
   * )
-    echo "export RBENV_VERSION=\"${version}\""
+    echo "export NDKENV_VERSION=\"${version}\""
     ;;
   esac
 else

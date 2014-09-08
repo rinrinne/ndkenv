@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
 #
-# Summary: Set or show the global Ruby version
+# Summary: Set or show the global NDK version
 #
-# Usage: rbenv global <version>
+# Usage: ndkenv global <version>
 #
-# Sets the global Ruby version. You can override the global version at
-# any time by setting a directory-specific version with `rbenv local'
-# or by setting the `RBENV_VERSION' environment variable.
+# Sets the global NDK version. You can override the global version at
+# any time by setting a directory-specific version with `ndkenv local'
+# or by setting the `NDKENV_VERSION' environment variable.
 #
-# <version> should be a string matching a Ruby version known to rbenv.
-# The special version string `system' will use your default system Ruby.
-# Run `rbenv versions' for a list of available Ruby versions.
+# <version> should be a string matching a NDK version known to ndkenv.
+# The special version string `system' will use your default system NDK.
+# Run `ndkenv versions' for a list of available NDK versions.
 
 set -e
-[ -n "$RBENV_DEBUG" ] && set -x
+[ -n "$NDKENV_DEBUG" ] && set -x
 
-# Provide rbenv completions
+# Provide ndkenv completions
 if [ "$1" = "--complete" ]; then
   echo system
-  exec rbenv-versions --bare
+  exec ndkenv-versions --bare
 fi
 
-RBENV_VERSION="$1"
-RBENV_VERSION_FILE="${RBENV_ROOT}/version"
+NDKENV_VERSION="$1"
+NDKENV_VERSION_FILE="${NDKENV_ROOT}/version"
 
-if [ -n "$RBENV_VERSION" ]; then
-  rbenv-version-file-write "$RBENV_VERSION_FILE" "$RBENV_VERSION"
+if [ -n "$NDKENV_VERSION" ]; then
+  ndkenv-version-file-write "$NDKENV_VERSION_FILE" "$NDKENV_VERSION"
 else
-  rbenv-version-file-read "$RBENV_VERSION_FILE" ||
-  rbenv-version-file-read "${RBENV_ROOT}/global" ||
-  rbenv-version-file-read "${RBENV_ROOT}/default" ||
+  ndkenv-version-file-read "$NDKENV_VERSION_FILE" ||
+  ndkenv-version-file-read "${NDKENV_ROOT}/global" ||
+  ndkenv-version-file-read "${NDKENV_ROOT}/default" ||
   echo system
 fi
