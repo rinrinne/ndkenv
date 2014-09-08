@@ -46,19 +46,6 @@ set -e
 [ -n "\$NDKENV_DEBUG" ] && set -x
 
 program="\${0##*/}"
-if [ "\$program" = "ndk" ]; then
-  for arg; do
-    case "\$arg" in
-    -e* | -- ) break ;;
-    */* )
-      if [ -f "\$arg" ]; then
-        export NDKENV_DIR="\${arg%/*}"
-        break
-      fi
-      ;;
-    esac
-  done
-fi
 
 export NDKENV_ROOT="$NDKENV_ROOT"
 exec "$(command -v ndkenv)" exec "\$program" "\$@"

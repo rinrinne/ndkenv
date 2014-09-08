@@ -20,11 +20,6 @@ version_exists() {
 
 if version_exists "$NDKENV_VERSION"; then
   echo "$NDKENV_VERSION"
-elif version_exists "${NDKENV_VERSION#ndk-}"; then
-  { echo "warning: ignoring extraneous \`ndk-' prefix in version \`${NDKENV_VERSION}'"
-    echo "         (set by $(ndkenv-version-origin))"
-  } >&2
-  echo "${NDKENV_VERSION#ndk-}"
 else
   echo "ndkenv: version \`$NDKENV_VERSION' is not installed" >&2
   exit 1
