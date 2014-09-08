@@ -85,8 +85,10 @@ make_shims() {
   local shims=("$@")
 
   for file in "${shims[@]}"; do
-    local shim="${file##*/}"
-    register_shim "$shim"
+    if [ -f $file -a -x $file ]; then
+      local shim="${file##*/}"
+      register_shim "$shim"
+    fi
   done
 }
 
@@ -138,7 +140,7 @@ shopt -s nullglob
 # executables.
 create_prototype_shim
 remove_outdated_shims
-make_shims ../versions/*/bin/*
+make_shims ../versions/*/*
 
 # Restore the previous working directory.
 cd "$OLDPWD"

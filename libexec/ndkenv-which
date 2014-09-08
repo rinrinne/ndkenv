@@ -60,7 +60,7 @@ if [ "$NDKENV_VERSION" = "system" ]; then
   PATH="$(remove_from_path "${NDKENV_ROOT}/shims")"
   NDKENV_COMMAND_PATH="$(command -v "$NDKENV_COMMAND" || true)"
 else
-  NDKENV_COMMAND_PATH="${NDKENV_ROOT}/versions/${NDKENV_VERSION}/bin/${NDKENV_COMMAND}"
+  NDKENV_COMMAND_PATH="${NDKENV_ROOT}/versions/${NDKENV_VERSION}/${NDKENV_COMMAND}"
 fi
 
 OLDIFS="$IFS"

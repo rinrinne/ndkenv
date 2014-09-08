@@ -21,7 +21,7 @@ fi
 whence() {
   local command="$1"
   ndkenv-versions --bare | while read version; do
-    path="$(ndkenv-prefix "$version")/bin/${command}"
+    path="$(ndkenv-prefix "$version")/${command}"
     if [ -x "$path" ]; then
       [ "$print_paths" ] && echo "$path" || echo "$version"
     fi
