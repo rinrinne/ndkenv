@@ -79,8 +79,7 @@ remove_outdated_shims() {
 }
 
 # The basename of each argument passed to `make_shims` will be
-# registered for installation as a shim. In this way, plugins may call
-# `make_shims` with a glob to register many shims at once.
+# registered for installation as a shim.
 make_shims() {
   local shims=("$@")
 

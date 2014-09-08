@@ -59,15 +59,9 @@ export NDKENV_DIR
 shopt -s nullglob
 
 bin_path="$(abs_dirname "$0")"
-for plugin_bin in "${NDKENV_ROOT}/plugins/"*/bin; do
-  bin_path="${bin_path}:${plugin_bin}"
-done
 export PATH="${bin_path}:${PATH}"
 
 hook_path="${NDKENV_HOOK_PATH}:${NDKENV_ROOT}/ndkenv.d:/usr/local/etc/ndkenv.d:/etc/ndkenv.d:/usr/lib/ndkenv/hooks"
-for plugin_hook in "${NDKENV_ROOT}/plugins/"*/etc/ndkenv.d; do
-  hook_path="${hook_path}:${plugin_hook}"
-done
 export NDKENV_HOOK_PATH="$hook_path"
 
 shopt -u nullglob
