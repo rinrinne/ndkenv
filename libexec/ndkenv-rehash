@@ -144,11 +144,6 @@ make_shims ../versions/*/*
 # Restore the previous working directory.
 cd "$OLDPWD"
 
-# Allow plugins to register shims.
-OLDIFS="$IFS"
-IFS=$'\n' scripts=(`ndkenv-hooks rehash`)
-IFS="$OLDIFS"
-
 for script in "${scripts[@]}"; do
   source "$script"
 done

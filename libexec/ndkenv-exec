@@ -33,9 +33,6 @@ export NDKENV_VERSION
 NDKENV_COMMAND_PATH="$(ndkenv-which "$NDKENV_COMMAND")"
 NDKENV_BIN_PATH="${NDKENV_COMMAND_PATH%/*}"
 
-OLDIFS="$IFS"
-IFS=$'\n' scripts=(`ndkenv-hooks exec`)
-IFS="$OLDIFS"
 for script in "${scripts[@]}"; do
   source "$script"
 done

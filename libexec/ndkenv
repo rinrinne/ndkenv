@@ -61,9 +61,6 @@ shopt -s nullglob
 bin_path="$(abs_dirname "$0")"
 export PATH="${bin_path}:${PATH}"
 
-hook_path="${NDKENV_HOOK_PATH}:${NDKENV_ROOT}/ndkenv.d:/usr/local/etc/ndkenv.d:/etc/ndkenv.d:/usr/lib/ndkenv/hooks"
-export NDKENV_HOOK_PATH="$hook_path"
-
 shopt -u nullglob
 
 

@@ -63,9 +63,6 @@ else
   NDKENV_COMMAND_PATH="${NDKENV_ROOT}/versions/${NDKENV_VERSION}/${NDKENV_COMMAND}"
 fi
 
-OLDIFS="$IFS"
-IFS=$'\n' scripts=(`ndkenv-hooks which`)
-IFS="$OLDIFS"
 for script in "${scripts[@]}"; do
   source "$script"
 done
